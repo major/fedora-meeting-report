@@ -1,10 +1,8 @@
 #!/usr/bin/env python
 from bugzilla import Bugzilla
-from collections import defaultdict, OrderedDict, Counter
+from collections import Counter
 from datetime import datetime
-import sys
-from terminaltables import AsciiTable, UnixTable
-from pprint import pprint
+from terminaltables import UnixTable
 
 
 VALID_STATUSES = ['NEW', 'ASSIGNED', 'MODIFIED', 'ON_QA']
@@ -75,4 +73,4 @@ print build_table(bugs, 'severity', 'Severity', 10)
 print
 print build_table(bugs, 'component', 'Component', 10)
 print
-print build_table(bugs, 'status', 'Status', 10)
+print build_table(bugs, 'version', 'Distro Version', 10)
