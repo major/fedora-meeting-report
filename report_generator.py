@@ -75,4 +75,4 @@ print build_table(bugs, 'severity', 'Severity', 10)
 print
 print build_table(bugs, 'component', 'Component', 10)
 print
-print build_table(bugs, 'status', 'Status', 10)
+print build_table(bugs, 'version', 'Distro Version', 10)
