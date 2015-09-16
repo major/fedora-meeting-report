@@ -5,6 +5,14 @@ from datetime import datetime
 from terminaltables import UnixTable
 
 
+TABLES = [
+        ('priority', 'Priority'),
+        ('status', 'Status'),
+        ('severity', 'Severity'),
+        ('component', 'Component'),
+        ('version', 'Distro Version')
+        ]
+
 VALID_STATUSES = ['NEW', 'ASSIGNED', 'MODIFIED', 'ON_QA']
 
 
@@ -65,12 +73,6 @@ print """
 -------------------------------------------------------------------------------
 """.format(datestring)
 
-print build_table(bugs, 'priority', 'Priority', 10)
-print
-print build_table(bugs, 'status', 'Status', 10)
-print
-print build_table(bugs, 'severity', 'Severity', 10)
-print
-print build_table(bugs, 'component', 'Component', 10)
-print
-print build_table(bugs, 'version', 'Distro Version', 10)
+for table in TABLES:
+    print build_table(bugs, table[0], table[1], 10)
+    print
