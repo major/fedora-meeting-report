@@ -40,8 +40,9 @@ def build_table(bugs, key, label, limit=None):
                        if getattr(x, key) == bug_key])
         owned[bug_key] = freq
 
+    headers = [[label, 'Count', 'Owned', 'Unowned']]
     # Let's build rows for the table
-    rows = [[label, 'Count', 'Owned', 'Unowned']]
+    rows = []
     for bug_key, total in sorted(frequency.items(), key=lambda t: t[1],
                                  reverse=True):
         row = [
@@ -56,7 +57,7 @@ def build_table(bugs, key, label, limit=None):
         rows = rows[0:limit]
 
     # Generate the table
-    return UnixTable(table_data=rows,
+    return UnixTable(table_data=headers+rows,
                      title="Tickets by {0}".format(label)).table
 
 # Gather data
