@@ -9,9 +9,9 @@ engine = create_engine('sqlite:///sqlite3.db', echo=False)
 metadata = MetaData()
 
 bugcounts = Table('bugcounts', metadata,
-    Column('reportdate', Date()),
-    Column('bugtable', String(16)),
-    Column('category', String(32)),
+    Column('reportdate', Date(), primary_key=True),
+    Column('bugtable', String(16), primary_key=True),
+    Column('category', String(32), primary_key=True),
     Column('owned', Integer),
     Column('unowned', Integer))
 
