@@ -6,6 +6,19 @@ from terminaltables import UnixTable
 from sqlalchemy import create_engine, func, select, Table, Column, Integer, String, Date, MetaData
 import argparse
 
+def get_security_bugs():
+    bz = Bugzilla(url='https://bugzilla.redhat.com/xmlrpc.cgi')
+    VALID_STATUSES = ['NEW', 'ASSIGNED', 'MODIFIED', 'ON_QA']
+    query_data = {
+        'keywords': 'SecurityTracking',
+        'keywords_type': 'allwords',
+        # 'component': 'cacti',
+        # 'severity': 'high',
+        'status': VALID_STATUSES,
+    }
+    bugs = bz.query(query_data)
+    return bugs
+
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
     group = parser.add_mutually_exclusive_group(required=True)
@@ -35,8 +48,6 @@ TABLES = [
         ('version', 'Distro Version')
         ]
 
-VALID_STATUSES = ['NEW', 'ASSIGNED', 'MODIFIED', 'ON_QA']
-
 # check if db contains current date - if yes do not collect data
 curdate = date.today()
 collect_data = False
@@ -44,19 +55,6 @@ sel = select([func.count(bugcounts.c.reportdate).label('reportdates')]).where(bu
 cnt = conn.execute(sel).fetchone()[0]
 if (cnt == 0):
     collect_data = True
-
-def get_security_bugs():
-    bz = Bugzilla(url='https://bugzilla.redhat.com/xmlrpc.cgi')
-    query_data = {
-        'keywords': 'SecurityTracking',
-        'keywords_type': 'allwords',
-        # 'component': 'cacti',
-        # 'severity': 'high',
-        'status': VALID_STATUSES,
-    }
-    bugs = bz.query(query_data)
-    return bugs
-
 
 def build_table(bugs, key, label, limit=None):
     # Find count of tickets based on our key
