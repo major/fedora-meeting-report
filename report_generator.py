@@ -4,6 +4,15 @@ from collections import Counter
 from datetime import datetime, date
 from terminaltables import UnixTable
 from sqlalchemy import create_engine, func, select, Table, Column, Integer, String, Date, MetaData
+import argparse
+
+if __name__ == '__main__':
+    parser = argparse.ArgumentParser()
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument('--cron', action='store_true', help='fetch and store date from bugzilla')
+    group.add_argument('--fetch', action='store_true', help='fetch report from bugzilla')
+    group.add_argument('--date', nargs=argparse.REMAINDER, help='show tables from specified date')
+    args = parser.parse_args()
 
 engine = create_engine('sqlite:///sqlite3.db', echo=False)
 metadata = MetaData()
