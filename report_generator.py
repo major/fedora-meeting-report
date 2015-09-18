@@ -89,14 +89,14 @@ def draw_header(datadate):
     # Build Report
     datestring = datetime.now().isoformat(' ')
     datastring = datadate.isoformat()
-    return """
-     __           _
-    / _|  ___  __| | ___  _ __ __ _
-    | |_ / _ \/ _` |/ _ \| '__/ _` |  Fedora Security Team Report
-    |  _|  __/ (_| | (_) | | | (_| |  Report date: {0}
-    |_|  \___|\__,_|\___/|_|  \__,_|  Data from: {1}
-    -------------------------------------------------------------------------------
-    """.format(datestring, datastring)
+    return (
+    " __           _\n"
+    "/ _|  ___  __| | ___  _ __ __ _\n"
+    "| |_ / _ \/ _` |/ _ \| '__/ _` |  Fedora Security Team Report\n"
+    "|  _|  __/ (_| | (_) | | | (_| |  Report date: {0}\n"
+    "|_|  \___|\__,_|\___/|_|  \__,_|  Data from: {1}\n"
+    "-------------------------------------------------------------------------------\n"
+    ).format(datestring, datastring)
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
