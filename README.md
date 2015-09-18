@@ -8,13 +8,13 @@ Python 2.7 or 3.1+ is required for collections.Counter to work.
 
 The script only needs a few python packages:
 
-    pip install terminaltables python-bugzilla
+    pip install terminaltables python-bugzilla parsedatetime SQLAlchemy
 
 ### Running the script
 
 Simply run the script:
 
-    python report_generator.py
+    python report_generator.py --fetch
 
 ### Sample output
 
@@ -22,7 +22,7 @@ Simply run the script:
      / _| ___  __| | ___  _ __ __ _
     | |_ / _ \/ _` |/ _ \| '__/ _` |  Fedora Security Team Report
     |  _|  __/ (_| | (_) | | | (_| |  Report date: 2015-09-02 21:55:33.305011
-    |_|  \___|\__,_|\___/|_|  \__,_|
+    |_|  \___|\__,_|\___/|_|  \__,_|  Data from: 2015-09-02
     -------------------------------------------------------------------------------
 
     ┌Tickets by Priority──┬───────┬─────────┐
@@ -66,11 +66,16 @@ Simply run the script:
     │ avr-binutils │ 6     │ 0     │ 6       │
     └──────────────┴───────┴───────┴─────────┘
 
-    ┌Tickets by Status─┬───────┬─────────┐
-    │ Status   │ Count │ Owned │ Unowned │
-    ├──────────┼───────┼───────┼─────────┤
-    │ NEW      │ 495   │ 68    │ 427     │
-    │ ON_QA    │ 44    │ 5     │ 39      │
-    │ ASSIGNED │ 25    │ 6     │ 19      │
-    │ MODIFIED │ 12    │ 0     │ 12      │
-    └──────────┴───────┴───────┴─────────┘
+    ┌Tickets by Distro Version─┬───────┬─────────┐
+    │ Distro Version │ Tickets │ Owned │ Unowned │
+    ├────────────────┼─────────┼───────┼─────────┤
+    │ 21             │ 126     │ 7     │ 119     │
+    │ 22             │ 130     │ 3     │ 127     │
+    │ 23             │ 33      │ 11    │ 22      │
+    │ 6.6            │ 1       │ 0     │ 1       │
+    │ el5            │ 67      │ 20    │ 47      │
+    │ el6            │ 210     │ 37    │ 173     │
+    │ epel7          │ 36      │ 4     │ 32      │
+    │ rawhide        │ 3       │ 0     │ 3       │
+    │ unspecified    │ 3       │ 0     │ 3       │
+    └────────────────┴─────────┴───────┴─────────┘
