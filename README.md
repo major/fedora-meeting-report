@@ -14,7 +14,9 @@ The script only needs a few python packages:
 
 Simply run the script:
 
-    python report_generator.py --fetch
+    python report_generator.py
+
+    python report_generator.py [--help] [--cron | --fetch | --date DATE]
 
 ### Sample output
 

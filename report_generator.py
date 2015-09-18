@@ -100,22 +100,27 @@ def draw_header(datadate):
 
 if __name__ == '__main__':
     parser = argparse.ArgumentParser()
-    group = parser.add_mutually_exclusive_group(required=True)
-    group.add_argument('-c', '--cron', action='store_true', help='fetch and store date from bugzilla')
+    group = parser.add_mutually_exclusive_group(required=False)
+    group.add_argument('-c', '--cron', action='store_true', help='fetch and store data from bugzilla')
     group.add_argument('-f', '--fetch', action='store_true', help='fetch report from bugzilla')
-    group.add_argument('-d', '--date', nargs=argparse.OPTIONAL, metavar='date', help='show tables from specified date (e.g. "2 days ago", "today" or "2015-09-01")')
+    group.add_argument('-d', '--date', nargs=1, default=None, help='show tables from specified date (e.g. "2 days ago", "today" or "2015-09-01")')
     args = parser.parse_args()
+
+    if not args.cron and args.date is None:
+        # set fetch as default action
+        args.fetch = True
 
     readdate = date.today()
     if args.date is not None:
+        datestr = ' '.join(args.date)
         try:
             # parse dates like "2015-09-01"
-            readdate = datetime.strptime(args.date, "%Y-%m-%d").date()
+            readdate = datetime.strptime(datestr, "%Y-%m-%d").date()
         except ValueError, e:
             try:
                 # parse all human readable dates
                 cal = parsedatetime.Calendar()
-                time_struct, parse_status = cal.parse(args.date)
+                time_struct, parse_status = cal.parse(datestr)
                 readdate = datetime.fromtimestamp(mktime(time_struct)).date()
             except ValueError, e:
                 parser.error("could not parse specified date.")
@@ -140,7 +145,7 @@ if __name__ == '__main__':
             sys.exit(1)
 
     elif args.fetch:
-        """ Fetching data from Database """
+        """ Fetching live data from Bugzilla """
         print draw_header(datadate=date.today())
         # Gather data
         bugs = get_security_bugs()
